@@ -1,1 +1,1 @@
-data class Parking(val vehicle: MutableSet<Vehicle>)
+data class Parking(val vehicles: MutableSet<Vehicle>)
