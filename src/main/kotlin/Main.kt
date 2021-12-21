@@ -4,7 +4,7 @@ fun main(args: Array<String>) {
     // 1-  Utilizamos los Set ya que este tipo de estructura no permite elementos duplicados
     val parking = Parking(mutableSetOf())
     val car = Vehicle("AA111AA", VehicleType.CAR, Calendar.getInstance(), "DISCOUNT_CARD_001")
-    val moto = Vehicle("B222BBB", VehicleType.MOTORCICLE, Calendar.getInstance())
+    val moto = Vehicle("B222BBB", VehicleType.MOTORCYCLE, Calendar.getInstance())
     val minibus = Vehicle("CC333CC", VehicleType.MINIBUS, Calendar.getInstance())
     val bus = Vehicle("DD444DD", VehicleType.BUS, Calendar.getInstance(), "DISCOUNT_CARD_002")
     val car1 = Vehicle("AA112AA", VehicleType.CAR, Calendar.getInstance(), "DISCOUNT_CARD_001")

@@ -33,13 +33,27 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
         val excededTime = if(vehicle.parkedTime.toInt() - TWO_HOURS>0) vehicle.parkedTime.toInt() - TWO_HOURS else 0
         var excededTimeRound = round(excededTime.toDouble()/15)
 
-        val result = when(vehicle.type){
-            VehicleType.CAR -> (VehicleType.CAR.pricing + excededTimeRound *5).toInt()
-            VehicleType.MOTORCICLE -> VehicleType.MOTORCICLE.pricing
-            VehicleType.BUS -> VehicleType.BUS.pricing
-            VehicleType.MINIBUS -> VehicleType.MINIBUS.pricing
+        /*val hasDiscountCard = vehicle.discountCard?.let {
+            true
+        } ?:run {
+            false
         }
+        println(hasDiscountCard)*/
 
-        return   result
+            var result = when(vehicle.type){
+                VehicleType.CAR -> (VehicleType.CAR.pricing + excededTimeRound * 5).toInt()
+                VehicleType.MOTORCYCLE -> (VehicleType.MOTORCYCLE.pricing + excededTimeRound *5).toInt()
+                VehicleType.BUS -> (VehicleType.BUS.pricing + excededTimeRound *5).toInt()
+                VehicleType.MINIBUS -> (VehicleType.MINIBUS.pricing + excededTimeRound *5).toInt()
+            }
+            result = vehicle.discountCard?.let {
+                (result * 0.85).toInt()
+
+            } ?: run{
+                result
+            }
+            return result
+
+
     }
 }

@@ -2,7 +2,7 @@ import java.util.*
 import java.util.Calendar.*
 
 const val MINUTES_IN_MILISECONDS = 60000
-const val TEST_TIME = 9700000
+const val TEST_TIME = 9000000
 data class Vehicle(val plate: String, val type : VehicleType,val checkInTimeParking : Calendar, val discountC : String? = null){
     val vehiclePlate = plate
     val vehicleType =  type
