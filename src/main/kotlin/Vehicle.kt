@@ -2,13 +2,14 @@ import java.util.*
 import java.util.Calendar.*
 
 const val MINUTES_IN_MILISECONDS = 60000
+const val TEST_TIME = 9700000
 data class Vehicle(val plate: String, val type : VehicleType,val checkInTimeParking : Calendar, val discountC : String? = null){
     val vehiclePlate = plate
     val vehicleType =  type
     val discountCard = discountC?.let { discountC } ?: run{ null }
     val checkInTime  = Calendar.getInstance()
     val parkedTime : Long
-        get() = (Calendar.getInstance().timeInMillis - checkInTime.timeInMillis)/ MINUTES_IN_MILISECONDS
+        get() = ((Calendar.getInstance().timeInMillis - checkInTime.timeInMillis+TEST_TIME)/ MINUTES_IN_MILISECONDS)
 
 
     //Function states that two vehicles are equals if their plates are equal
