@@ -1,4 +1,7 @@
 data class Parking(val vehiclesIn: MutableSet<Vehicle>){
+
+    var checkoutPair: Pair<Int, Int> = Pair(0,0)
+
     val maxParking = 20
     var vehicles = vehiclesIn
 
@@ -18,6 +21,16 @@ data class Parking(val vehiclesIn: MutableSet<Vehicle>){
             println(it.plate)
         }
     }
+
+    fun vehiclesAndProfits(){
+
+
+        //val parkinSpace = ParkingSpace()
+
+
+    }
+
+
 
 
 }

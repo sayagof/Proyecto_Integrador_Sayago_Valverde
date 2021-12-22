@@ -5,15 +5,17 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
 
     fun checkOutVehicle(plate: String): Int {
         var totalFee : Int = 0
-        parking.vehicles.filter { it.plate == plate }.forEach{
-            if(it.plate == plate){
-                totalFee = onSuccess(it)
 
-        }else{
+         if (vehicle.plate == plate) {
+                totalFee = onSuccess(vehicle)
+                println("Your fee is $$totalFee Come back soon.")
+
+            } else {
                 totalFee = onError()
+                println("Sorry, the check-out failed")
 
             }
-        }
+
         return totalFee
     }
 
@@ -25,6 +27,7 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
         val finalFee = calculateFee(vehicle)
 
         parking.vehicles.remove(vehicle)
+
         return finalFee
     }
 
@@ -33,12 +36,12 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
         val excededTime = if(vehicle.parkedTime.toInt() - TWO_HOURS>0) vehicle.parkedTime.toInt() - TWO_HOURS else 0
         var excededTimeRound = round(excededTime.toDouble()/15)
 
-        /*val hasDiscountCard = vehicle.discountCard?.let {
+
+        val hasDiscountCard: Boolean = vehicle.discountCard?.let {
             true
         } ?:run {
             false
         }
-        println(hasDiscountCard)*/
 
             var result = when(vehicle.type){
                 VehicleType.CAR -> (VehicleType.CAR.pricing + excededTimeRound * 5).toInt()
@@ -46,14 +49,12 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
                 VehicleType.BUS -> (VehicleType.BUS.pricing + excededTimeRound *5).toInt()
                 VehicleType.MINIBUS -> (VehicleType.MINIBUS.pricing + excededTimeRound *5).toInt()
             }
-            result = vehicle.discountCard?.let {
-                (result * 0.85).toInt()
 
-            } ?: run{
-                result
+            if(hasDiscountCard){
+                result = (result * 0.85).toInt()
             }
-            return result
 
+            return result
 
     }
 }
