@@ -1,13 +1,19 @@
 import kotlin.math.round
 
 data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
-    var parking = parkingInput
 
-    fun checkOutVehicle(plate: String): Int {
+    var parking = parkingInput.vehicles
+
+    var checkoutPair: Pair<Int, Int> = Pair(0,0)
+
+    fun checkOutVehicle(plate: String) {
         var totalFee : Int = 0
 
-         if (vehicle.plate == plate) {
-                totalFee = onSuccess(vehicle)
+        parking.filter { it.plate == plate }.forEach{
+            if (it.plate == plate) {
+                totalFee = onSuccess(it)
+                vehiclesAndProfits(totalFee)
+
                 println("Your fee is $$totalFee Come back soon.")
 
             } else {
@@ -15,8 +21,11 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
                 println("Sorry, the check-out failed")
 
             }
+        }
 
-        return totalFee
+
+
+        //parking.vehiclesAndProfits(totalFee)
     }
 
     private fun onError():Int {
@@ -26,7 +35,7 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
     private fun onSuccess(vehicle: Vehicle) : Int {
         val finalFee = calculateFee(vehicle)
 
-        parking.vehicles.remove(vehicle)
+        parking.remove(vehicle)
 
         return finalFee
     }
@@ -57,4 +66,18 @@ data class ParkingSpace(var vehicle: Vehicle, val parkingInput : Parking) {
             return result
 
     }
+
+
+    fun vehiclesAndProfits(mountFee: Int){
+
+        var countCar = checkoutPair.first + 1
+        var totalFeeCar = checkoutPair.second + mountFee
+        checkoutPair = Pair(countCar, totalFeeCar)
+    }
+
+    fun resumeFee(){
+        println("${checkoutPair.first} vehicles have checked out and have earnings of ${checkoutPair.second}")
+    }
+
+
 }
